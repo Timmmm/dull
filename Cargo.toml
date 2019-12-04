@@ -1,0 +1,10 @@
+[package]
+name = "dull"
+version = "1.0.0"
+authors = ["Tim Hutt <tdhutt@gmail.com>"]
+edition = "2018"
+description = "Strip ANSI colour control codes."
+license = "0BSD"
+repository = "https://github.com/Timmmm/dull"
+
+[dependencies]
