@@ -1,0 +1,8 @@
+[build]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.x86_64-unknown-linux-musl]
+# If using the downloads from musl.cc
+#   linker = "x86_64-linux-musl-gcc"
+# If using musl-tools
+linker = "musl-gcc"

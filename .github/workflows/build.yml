@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # Note, musl-tools has a bug in ubuntu-20.04 that causes a segfault when the test is run.
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-18.04
+            cargo_extra_flags: --target x86_64-unknown-linux-musl
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Musl target
+      if: ${{ matrix.os == 'ubuntu-18.04' }}
+      run: >
+        sudo apt-get install musl-tools &&
+        rustup target add x86_64-unknown-linux-musl &&
+        musl-gcc --version
+
+    - name: Versions
+      run: cargo --version && rustc --version
+
+    - name: Build
+      run: cargo build --verbose ${{ matrix.cargo_extra_flags }}
+
+    - name: Run tests
+      run: cargo test --verbose ${{ matrix.cargo_extra_flags }}
