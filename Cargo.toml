@@ -6,5 +6,6 @@ edition = "2018"
 description = "Strip ANSI colour control codes."
 license = "0BSD"
 repository = "https://github.com/Timmmm/dull"
+keywords = ["ansi", "color", "colour", "terminal", "strip"]
 
 [dependencies]
